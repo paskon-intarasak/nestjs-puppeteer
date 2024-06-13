@@ -1,0 +1,14 @@
+services:
+  nestjs-puppeteer:
+    platform: linux/amd64
+    image: nestjs-puppeteer:develop
+    container_name: nestjs-puppeteer-develop
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
