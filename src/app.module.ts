@@ -17,6 +17,8 @@ import * as Joi from 'joi';
           .required(),
         APP_NAME: Joi.string().required(),
         APP_PORT: Joi.number().positive().default(3000).required(),
+        APP_TIGER_USERNAME: Joi.string().required(),
+        APP_TIGER_PASSWORD: Joi.string().required(),
       }),
     }),
     PuppeteerModule.forRootAsync({
