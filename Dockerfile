@@ -27,4 +27,7 @@ WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 
+# If you want to deploy with config env in k8s deployment spec
+# COPY .env .env
+
 CMD ["node","dist/main.js"]
