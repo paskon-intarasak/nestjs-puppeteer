@@ -2,7 +2,7 @@ services:
   nestjs-puppeteer:
     platform: linux/amd64
     image: nestjs-puppeteer:develop
-    container_name: nestjs-puppeteer-develop
+    container_name: nestjs-puppeteer
     build:
       context: .
       dockerfile: Dockerfile
