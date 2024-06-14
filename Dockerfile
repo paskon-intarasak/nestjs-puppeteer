@@ -5,7 +5,8 @@ RUN npm i -g pnpm
 FROM base AS dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+# For Production Install if you want development install use normal install pnpm install normaly
+RUN pnpm install --frozen-lockfile
 
 FROM base AS build
 
