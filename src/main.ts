@@ -6,7 +6,11 @@ import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const logger = new Logger('bootstrap');
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    rawBody: true,
+  });
+
   const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
     .setTitle('example browser')

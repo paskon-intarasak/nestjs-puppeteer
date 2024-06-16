@@ -8,8 +8,6 @@ export class AppController {
 
   @Get()
   async getHello(@Res() res: Response) {
-    const imageBuffer = await this.appService.testBrowser();
-    res.set('Content-Type', 'image/png');
-    res.send(imageBuffer);
+    return 'OK';
   }
 }

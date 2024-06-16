@@ -10,5 +10,8 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - ./uploads:/app/uploads
+      - ./screenshot:/app/scheenshot
     ports:
-      - 3000:3000
+      - 3100:3100
