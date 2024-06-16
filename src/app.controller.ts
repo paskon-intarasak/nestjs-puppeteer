@@ -8,6 +8,6 @@ export class AppController {
 
   @Get()
   async getHello(@Res() res: Response) {
-    return 'OK';
+    return res.status(200).json('OK');
   }
 }
