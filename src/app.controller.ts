@@ -10,4 +10,9 @@ export class AppController {
   async getHello(@Res() res: Response) {
     return res.status(200).json('OK');
   }
+
+  @Get('manual')
+  async triggerManual() {
+    return await this.appService.autoCheckInToTigerSoft();
+  }
 }

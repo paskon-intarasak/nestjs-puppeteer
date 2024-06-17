@@ -3,14 +3,16 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { HttpExceptionFilter } from './middleware/httpfilter.middleware';
 
 async function bootstrap() {
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create(AppModule, {
     cors: true,
     rawBody: true,
+    logger,
   });
-
+  app.useGlobalFilters(new HttpExceptionFilter());
   const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
     .setTitle('example browser')

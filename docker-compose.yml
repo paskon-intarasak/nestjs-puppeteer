@@ -1,8 +1,8 @@
 services:
   nestjs-puppeteer-app:
     platform: linux/amd64
-    image: nestjs-puppeteer:develop
-    container_name: nestjs-puppeteer-app
+    image: 982860581031.dkr.ecr.ap-southeast-1.amazonaws.com/auto-checkin:1.0
+    container_name: autocheckin-1.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,5 +13,6 @@ services:
     volumes:
       - ./uploads:/app/uploads
       - ./screenshot:/app/scheenshot
+      - ./downloads:/app/downloads
     ports:
       - 3100:3100

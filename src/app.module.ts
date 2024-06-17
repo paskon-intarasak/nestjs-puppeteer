@@ -1,4 +1,9 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  OnModuleInit,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PuppeteerModule } from 'nestjs-puppeteer';
@@ -9,6 +14,7 @@ import { TelegramModule } from './telegram/telegram.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { RequestLoggerMiddleware } from './middleware/request-logger.middleware';
 
 @Module({
   imports: [
@@ -42,5 +48,11 @@ export class AppModule implements OnModuleInit {
     await fs.ensureDir(path.join(__dirname, '../uploads'));
 
     await fs.ensureDir(path.join(__dirname, '../screenshot'));
+  }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestLoggerMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
   }
 }

@@ -4,7 +4,7 @@ import { InjectBrowser } from 'nestjs-puppeteer';
 import { Browser } from 'puppeteer';
 import * as path from 'path';
 import * as fs from 'fs-extra';
-import axios from 'axios';
+import * as axios from 'axios';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
@@ -68,9 +68,9 @@ export class AppService {
       }
       // Simulate pressing the Enter key
       await newPage.keyboard.press('Enter', { delay: 1000 });
-      await newPage.type('textarea[name="txtAddMemo2"]', 'เทสระบบ', {
-        delay: 1000,
-      });
+      // await newPage.type('textarea[name="txtAddMemo2"]', 'เทสระบบ', {
+      //   delay: 1000,
+      // });
       // await newPage.click('input[type="button"][name="Button1"]');
       await newPage.click(
         '.row .col-md-12.col-sm-12.col-xs-12.fixedPadding input[type="button"][name="Button1"]',
@@ -107,16 +107,16 @@ export class AppService {
         path: path.join(saveDir, `${timestamp}.jpg`),
       });
       // Send to Telegram
-      await newPage.close();
+      // await newPage.close();
       const image = fs.readFileSync(path.join(saveDir, `${timestamp}.jpg`));
       const base64Image = Buffer.from(image).toString('base64');
-      await axios.post(
-        `https://api.telegram.org/bot${telegramApiToken}/sendPhoto`,
-        {
-          chat_id: parseInt('587931895'),
-          photo: `data:image/jpeg;base64,${base64Image}`,
-        },
-      );
+      // await axios.default.post(
+      //   `https://api.telegram.org/bot${telegramApiToken}/sendPhoto`,
+      //   {
+      //     chat_id: parseInt('587931895'),
+      //     photo: `data:image/jpeg;base64,${base64Image}`,
+      //   },
+      // );
     }
   }
 }

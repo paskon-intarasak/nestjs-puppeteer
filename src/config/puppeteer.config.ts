@@ -16,7 +16,7 @@ export class PuppeteerConfigService implements PuppeteerOptionsFactory {
           : fileExists('/usr/bin/chrome')
             ? '/usr/bin/chrome'
             : '',
-      headless: true,
+      headless: false,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
