@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: example2
+  name: example2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example2
+  template:
+    metadata:
+      labels:
+        app: example2
+    spec:
+      containers:
+        - image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+          name: nestjs-puppetter-example-2
+          ports:
+            - containerPort: 3002
+          env:
+            # Example of None Secret ENV
+            - name: NODE_ENV
+              value: production
+            - name: APP_NAME
+              value: example-2
+            - name: APP_PORT
+              value: '3002'
+            - name: APP_DEEP_SECRET_ONE
+              valueFrom:
+                secretKeyRef:
+                  name: example2
+                  key: dank2
+            - name: APP_DEEP_SECRET_TWO
+              valueFrom:
+                secretKeyRef:
+                  name: example1
+                  key: dank2

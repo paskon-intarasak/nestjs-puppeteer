@@ -1,0 +1,5 @@
+image:
+  repository: nestjs-puppeteer
+  # Dynamic Tag
+  tag: develop
+  pullPolicy: Always

@@ -16,7 +16,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
   await app.listen(configService.get<number>('APP_PORT'));
   logger.log(`NODE Environtment is : ${configService.get<string>('NODE_ENV')}`);
   logger.log(`Application Name: ${configService.get<string>('APP_NAME')}`);
