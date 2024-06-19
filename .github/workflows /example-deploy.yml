@@ -1,0 +1,60 @@
+name: example deploy to local machine host
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: start example deployments
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Use NodeJS ${{ matrix.node-version }} for build testing
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: true
+
+      - name: Build Project
+        run: pnpm build
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Build docker image to Digital Ocean Registery
+        run: |
+          docker build -t ${{ secrets.REGISTRY_NAME }}/nestjs-puppeteer:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1200
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push ${{ secrets.REGISTRY_NAME }}/python-example:$(echo $GITHUB_SHA | head -c7)
+
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 tml-digital-ocean-cluster
+
+      # install helm
+      - uses: azure/setup-helm@v1
+        with:
+          version: 'v3.5.2' # default is latest stable
+        id: install
+
+      # deploy to Digital Ocean Kubernetes cluster
+      - name: Deploy to staging
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade --install REPLACE_NAME charts/REPLACE_CHARTS_LOCATION -f $GITHUB_WORKSPACE/charts/REPLACE_VALUES_LOCATION.yaml --set image.tag=$(echo $GITHUB_SHA | head -c7) --namespace REPLACE_NAMESPACE
+          kubeconfig: '/home/runner/.kube/config'

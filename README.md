@@ -1,6 +1,17 @@
+Remarkable:
+If you not familiar with github action and helm combo you can do it with your local machine
+
+- define your name space
+- setup helm
+- run helm install
+
 # NestJS + Puppeteer + k8s + helm combo
 
 ## k8s
+
+```
+https://kubernetes.io/docs/home/
+```
 
 ##### Get all secret
 
@@ -33,6 +44,10 @@ kubectl get deployments -o wide
 ```
 
 ## HELM CHART
+
+```
+https://helm.sh/docs/
+```
 
 ##### Apply Change (Deployment Change not Image\*\*\*\*)
 
