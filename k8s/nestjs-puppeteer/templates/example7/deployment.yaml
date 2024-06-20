@@ -2,44 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: example1
-  name: example1
+    app: example7
+  name: example7
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example1
+      app: example7
   template:
     metadata:
       labels:
-        app: example1
+        app: example7
     spec:
       containers:
         - image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
-          name: nestjs-puppetter-example-1
+          name: nestjs-puppetter-example-7
           ports:
-            - containerPort: 3001
+            - containerPort: 3007
           env:
             - name: NODE_ENV
               valueFrom:
                 configMapKeyRef:
-                  name: example1
+                  name: example7
                   key: NODE_ENV
 
             - name: APP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: example1
+                  name: example7
                   key: APP_NAME
 
             - name: APP_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: example1
+                  name: example7
                   key: APP_PORT
 
             - name: APP_WEB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: example1
+                  name: example7
                   key: APP_WEB_URL

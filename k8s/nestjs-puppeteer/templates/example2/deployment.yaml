@@ -20,20 +20,26 @@ spec:
           ports:
             - containerPort: 3002
           env:
-            # Example of None Secret ENV
             - name: NODE_ENV
-              value: production
-            - name: APP_NAME
-              value: example-2
-            - name: APP_PORT
-              value: '3002'
-            - name: APP_DEEP_SECRET_ONE
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: example2
-                  key: dank2
-            - name: APP_DEEP_SECRET_TWO
+                  key: NODE_ENV
+
+            - name: APP_NAME
               valueFrom:
-                secretKeyRef:
-                  name: example1
-                  key: dank2
+                configMapKeyRef:
+                  name: example2
+                  key: APP_NAME
+
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: example2
+                  key: APP_PORT
+
+            - name: APP_WEB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: example2
+                  key: APP_WEB_URL

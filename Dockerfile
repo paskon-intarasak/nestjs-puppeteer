@@ -1,19 +1,17 @@
 # build on top of linux kernal system (not mac or pc)
 FROM --platform=linux/amd64 node:21.5.0-alpine AS base
-RUN npm i -g pnpm
 
 FROM base AS dependencies
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-# For Production Install if you want development install use normal install pnpm install normaly
-RUN pnpm install --frozen-lockfile
+COPY package.json yarn.lock ./
+RUN yarn install --production
 
 FROM base AS build
 
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN pnpm run build
+RUN yarn run build
 
 FROM base AS deploy
 # Install necessary packages for Puppeteer in deploy image

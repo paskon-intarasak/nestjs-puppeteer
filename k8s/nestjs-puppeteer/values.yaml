@@ -1,7 +1,7 @@
 image:
-  repository: nestjs-puppeteer
+  repository: marutora7876/nestjs-puppeteer
   # Dynamic Tag
-  tag: develop
+  tag: prototype
   pullPolicy: Always
 
 ingress:
