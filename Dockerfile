@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 node:21.5.0-alpine AS base
 
 FROM base AS dependencies
 WORKDIR /app
-COPY package.json yarn.lock
+COPY package.json yarn.lock ./
 RUN yarn install --production
 
 FROM base AS build
