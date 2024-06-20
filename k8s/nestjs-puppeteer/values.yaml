@@ -3,3 +3,45 @@ image:
   # Dynamic Tag
   tag: develop
   pullPolicy: Always
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: example1.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: example1
+              port:
+                number: 3001
+    - host: example2.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: example2
+              port:
+                number: 3002
+  tls:
+    - secretName: service1-tls
+      hosts:
+        - service1.example.com
+    - secretName: service2-tls
+      hosts:
+        - service2.example.com
+
+example1:
+  replicaCount: 1
+  containerPort: 3001
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
