@@ -28,7 +28,7 @@ ingress:
               port:
                 number: 3002
   tls:
-    - secretName: service1-tls
+    - secretName: cloudflare-origin-ca # TLS Cloudflare Example (Read README.md)
       hosts:
         - service1.example.com
     - secretName: service2-tls

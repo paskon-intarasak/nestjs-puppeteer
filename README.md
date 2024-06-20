@@ -68,3 +68,7 @@ helm upgrade nestjs-puppeteer ./k8s/nestjs-puppeteer
 ```
 helm upgrade nestjs-puppeteer k8s/nestjs-puppeteer -f k8s/nestjs-puppeteer/values.yaml
 ```
+
+```
+kubectl create secret generic cloudflare-origin-ca --from-file=ca.crt=path/to/ca.crt --from-file=cert.pem=path/to/cert.pem --from-file=key.pem=path/to/key.pem
+```
