@@ -1,6 +1,9 @@
 name: example deploy to local machine host
+
 on:
   workflow_dispatch:
+    branches:
+      - feature/yarn
 
 jobs:
   build:
