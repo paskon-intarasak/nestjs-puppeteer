@@ -4,14 +4,15 @@ FROM --platform=linux/amd64 node:21.5.0-alpine AS base
 FROM base AS dependencies
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install --production
+RUN yarn install --frozen-lockfile
 
 FROM base AS build
 
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN yarn run build
+RUN yarn build
+RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
 
 FROM base AS deploy
 # Install necessary packages for Puppeteer in deploy image
