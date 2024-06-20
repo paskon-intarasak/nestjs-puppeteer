@@ -1,7 +1,7 @@
 services:
   nestjs-puppeteer-app:
     platform: linux/amd64
-    image: nestjs-puppeteer:develop
+    image: marutora7876/nestjs-puppeteer:prototype
     container_name: nestjs-puppeteer-app
     build:
       context: .

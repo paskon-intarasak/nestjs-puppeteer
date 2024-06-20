@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  APP_NAME: example8
+  APP_PORT: "3008"
+  APP_WEB_URL: https://stackoverflow.com
+  NODE_ENV: production
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: example8

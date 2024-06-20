@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  APP_NAME: example10
+  APP_PORT: "3010"
+  APP_WEB_URL: https://www.linkedin.com
+  NODE_ENV: production
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: example10
