@@ -24,9 +24,9 @@ spec:
             - name: NODE_ENV
               value: production
             - name: APP_NAME
-              value: example-2
+              value: example2
             - name: APP_PORT
-              value: '3002'
+              value: 3002
             - name: APP_DEEP_SECRET_ONE
               valueFrom:
                 secretKeyRef:
@@ -35,5 +35,5 @@ spec:
             - name: APP_DEEP_SECRET_TWO
               valueFrom:
                 secretKeyRef:
-                  name: example1
+                  name: example2
                   key: dank2
