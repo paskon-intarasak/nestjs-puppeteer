@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build docker image to Digital Ocean Registery
+      - name: Build docker image to docker hub registery
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nestjs-puppeteer:$(echo $GITHUB_SHA | head -c7) .
 
@@ -48,7 +48,7 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
-        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 k8s-1-30-1-do-0-sgp1-1718355472206
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 ${{ secrets.CLUSTER_ID }}
 
       # install helm
       - uses: azure/setup-helm@v4.2.0
@@ -56,10 +56,5 @@ jobs:
           version: 'v3.13.3' # default is latest stable
         id: install
 
-      # deploy to Digital Ocean Kubernetes cluster
-      - name: Deploy to staging
-        uses: WyriHaximus/github-action-helm3@v3
-        with:
-          exec: helm upgrade --install nestjs-puppeteer k8s/nestjs-puppeteer -f k8s/nestjs-puppeteer/values.yaml --set image.tag=$(echo $GITHUB_SHA | head -c7)
-          kubeconfig: '/home/runner/.kube/config'
-          overrule_existing_kubeconfig: 'true'
+      - name: try to run helm
+        run: helm upgrade --install nestjs-puppeteer k8s/nestjs-puppeteer -f k8s/nestjs-puppeteer/values.yaml --set image.tag=$(echo $GITHUB_SHA | head -c7)
