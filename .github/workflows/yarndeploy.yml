@@ -60,6 +60,6 @@ jobs:
       - name: Deploy to staging
         uses: WyriHaximus/github-action-helm3@v3
         with:
-          exec: helm upgrade --install nestjs-puppeteer k8s/nestjs-puppeteer -f k8s/nestjs-puppeteer/values.yaml --set image.tag=$(echo $GITHUB_SHA | head -c7) --namespace default
+          exec: helm upgrade --install nestjs-puppeteer k8s/nestjs-puppeteer -f k8s/nestjs-puppeteer/values.yaml --set image.tag=$(echo $GITHUB_SHA | head -c7)
           kubeconfig: '/home/runner/.kube/config'
           overrule_existing_kubeconfig: 'true'
