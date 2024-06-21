@@ -50,9 +50,11 @@ jobs:
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 ${{ secrets.CLUSTER_ID }}
 
-      - name: install kubectl
-      - uses: actions-hub/kubectl@master
-      - run: sh run-configmap.sh
+      - name: install kubectl in local machine
+        uses: actions-hub/kubectl@master
+
+      - name: run configmap
+        run: sh run-configmap.sh
 
       # install helm
       - uses: azure/setup-helm@v4.2.0
