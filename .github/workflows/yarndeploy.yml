@@ -50,8 +50,10 @@ jobs:
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 ${{ secrets.CLUSTER_ID }}
 
-      - name: install kubectl in local machine
-        uses: actions-hub/kubectl@master
+      # - name: install kubectl in local machine
+      #   uses: actions-hub/kubectl@master
+      #   env:
+      #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 
       - name: run configmap
         run: sh run-configmap.sh
