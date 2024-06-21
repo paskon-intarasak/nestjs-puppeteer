@@ -39,7 +39,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nestjs-puppeteer:$(echo $GITHUB_SHA | head -c7) .
 
-      - name: Push image to DigitalOcean Container Registry
+      - name: Push image to docker hub registery
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/nestjs-puppeteer:$(echo $GITHUB_SHA | head -c7)
 
       - name: Install doctl
@@ -49,6 +49,10 @@ jobs:
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 1200 ${{ secrets.CLUSTER_ID }}
+
+      - name: install kubectl
+      - uses: actions-hub/kubectl@master
+      - run: sh run-configmap.sh
 
       # install helm
       - uses: azure/setup-helm@v4.2.0
