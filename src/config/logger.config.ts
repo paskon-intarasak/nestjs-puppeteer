@@ -1,8 +1,16 @@
+import { Logtail } from '@logtail/node';
+import { LogtailTransport } from '@logtail/winston';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 
-export const loggerConfig = (appName: string) => {
+export const loggerConfig = (appName: string, logtailToken: string) => {
+  const logtail = new Logtail(logtailToken);
+  const logtailFormat = winston.format((info) => {
+    info.appName = appName;
+    return info;
+  });
+
   return WinstonModule.createLogger({
     transports: [
       // file on daily rotation (error only)
@@ -41,6 +49,10 @@ export const loggerConfig = (appName: string) => {
             },
           ),
         ),
+      }),
+      new LogtailTransport(logtail, {
+        level: 'silly',
+        format: winston.format.combine(logtailFormat(), winston.format.json()),
       }),
     ],
   });

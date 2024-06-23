@@ -7,10 +7,11 @@ import { loggerConfig } from './config/logger.config';
 
 async function bootstrap() {
   const isProduction = process.env.NODE_ENV === 'production';
+  const logTailToken = process.env.LOGTAIL_TOKEN;
   const logger = new Logger('bootstrap');
   const app = await NestFactory.create(AppModule, {
     cors: true,
-    logger: isProduction ? loggerConfig('Bruh1') : new Logger(),
+    logger: isProduction ? loggerConfig('Bruh1', logTailToken) : new Logger(),
     // logger: loggerConfig('Hell Motherfucker'),
   });
   const configService = app.get(ConfigService);
