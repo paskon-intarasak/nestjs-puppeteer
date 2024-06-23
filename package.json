@@ -26,11 +26,14 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.3.1",
     "joi": "^17.13.1",
+    "nest-winston": "^1.10.0",
     "nestjs-puppeteer": "^2.1.0",
     "puppeteer": "^22.11.0",
     "puppeteer-extra": "^3.3.6",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

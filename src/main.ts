@@ -3,10 +3,16 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { loggerConfig } from './config/logger.config';
 
 async function bootstrap() {
+  const isProduction = process.env.NODE_ENV === 'production';
   const logger = new Logger('bootstrap');
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger: isProduction ? loggerConfig('Bruh1') : new Logger(),
+    // logger: loggerConfig('Hell Motherfucker'),
+  });
   const configService = app.get(ConfigService);
   const config = new DocumentBuilder()
     .setTitle('example browser')
