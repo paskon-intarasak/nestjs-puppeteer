@@ -21,6 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: example1
+  namespace: example1
 spec:
   selector:
     app: example1

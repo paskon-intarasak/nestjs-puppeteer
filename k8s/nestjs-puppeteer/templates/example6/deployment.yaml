@@ -4,6 +4,7 @@ metadata:
   labels:
     app: example6
   name: example6
+  namespace: example6
 spec:
   replicas: 1
   selector:
