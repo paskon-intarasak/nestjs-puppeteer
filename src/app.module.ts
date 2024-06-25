@@ -1,4 +1,10 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import {
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  OnModuleInit,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { InjectBrowser, PuppeteerModule } from 'nestjs-puppeteer';
@@ -6,6 +12,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PuppeteerConfigService } from './config/puppeteer.config';
 import { Browser } from 'puppeteer';
 import * as Joi from 'joi';
+import { RequestLoggerMiddleware } from './middleware/request.logger';
 
 @Module({
   imports: [
@@ -28,10 +35,18 @@ import * as Joi from 'joi';
   providers: [AppService],
 })
 export class AppModule implements OnModuleInit {
+  private logger = new Logger(AppModule.name);
   constructor(@InjectBrowser() private readonly browser: Browser) {}
 
   // You can implement on init here
   async onModuleInit() {
-    console.log(`The module has been initialized.`);
+    this.logger.error('Appmodule on Init');
+  }
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestLoggerMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
   }
 }

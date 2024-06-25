@@ -1,14 +1,21 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController {
+  private readonly logger = new Logger(AppController.name);
   constructor(
     private readonly appService: AppService,
     private configService: ConfigService,
   ) {}
+
+  @Get()
+  async getAll() {
+    this.logger.log('Get All Bruh');
+    return 'Ok';
+  }
 
   @Get('title')
   async getHello() {
